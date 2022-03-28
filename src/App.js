@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/Navbar";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Login from "./components/pages/Login";
+import Home from "./components/pages/Home";
+import Posts from "./components/pages/Posts";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const u = localStorage.getItem("user");
+    u && JSON.parse(u) ? setUser(true) : setUser(false);
+  }, []);
+  //login and stor fields
+  const login = (data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    setUser(true);
+  };
+  //logout user
+  const logout = () => {
+    localStorage.clear();
+    setUser(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar user={user} logout={logout} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {user && <Route path="/posts" element={<Posts />} />}
+        {!user && <Route path="/login" element={<Login login={login} />} />}
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/posts" : "/login"} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

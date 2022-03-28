@@ -1,0 +1,21 @@
+<h5>1: what is the difference between Functional components and Class components</h5>
+  A functional component is function that accepts props as an argument and returns a React element
+  A class component requires you to extend from React Component and create a render function which returns a React element
+
+<h5>2: rools of hooks</h5>
+  Only Call Hooks at the Top Level
+  Don’t call Hooks inside loops, conditions, or nested functions
+  Only Call Hooks from React Functions
+  Don’t call Hooks from regular JavaScript functions
+
+
+<h5>3: how useEffect work ? </h5>
+runs after each render of the component where it’s called,and accepts callback function and a second argument an array of values
+
+
+<h5>4: why state and not common variable ? </h5>
+state re-render the component ,common variable does not
+
+
+<h5>5: what is props ? </h5>
+ a way to pass data from one component to other components
